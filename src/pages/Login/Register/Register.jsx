@@ -1,11 +1,46 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProviders";
 const Register = () => {
+  const { createUser, updateUser } = useContext(AuthContext);
+  const [accepted, setAccepted] = useState(false);
+
+  const handelRegister = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const displayName = form.name.value;
+    const photoURL = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(displayName, photoURL, email, password);
+
+    createUser(email, password)
+      .then((result) => {
+        const createdUser = result.user;
+        console.log(createdUser);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    updateUser(displayName, photoURL)
+      .then((result) => {
+        const updateDetails = result.user;
+        console.log(updateDetails);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleAccepted = (e) => {
+    setAccepted(e.target.checked);
+  };
   return (
     <Container className="mx-auto w-25">
       <h3>Please Register</h3>
-      <Form>
+      <Form onSubmit={handelRegister}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -45,13 +80,18 @@ const Register = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
+            onClick={handleAccepted}
             type="checkbox"
             name="accept"
-            label="Accept Terms and Conditions"
+            label={
+              <>
+                Accept <Link to="/terms"> Terms and Conditions</Link>
+              </>
+            }
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" disabled={!accepted} type="submit">
           Register
         </Button>
         <br />

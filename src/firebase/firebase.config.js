@@ -1,16 +1,19 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { BiColumns } from "react-icons/bi";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+
+console.log("environment variable", import.meta.env.VITE_apiKey);
 const firebaseConfig = {
-  apiKey: "AIzaSyCoP9xRk5MauBD61nInYBpmtulem0leXvw",
-  authDomain: "the-news-dragon-pro-f0469.firebaseapp.com",
-  projectId: "the-news-dragon-pro-f0469",
-  storageBucket: "the-news-dragon-pro-f0469.appspot.com",
-  messagingSenderId: "77168081422",
-  appId: "1:77168081422:web:78ecebac44a16b33585a5f",
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID,
 };
 
 // Initialize Firebase
