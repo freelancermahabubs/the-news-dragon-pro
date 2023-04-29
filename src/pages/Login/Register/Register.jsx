@@ -2,8 +2,10 @@ import React, { useContext, useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
+import { getAuth, updateProfile } from "firebase/auth";
+
 const Register = () => {
-  const { createUser, updateUser } = useContext(AuthContext);
+  const { createUser } = useContext(AuthContext);
   const [accepted, setAccepted] = useState(false);
 
   const handelRegister = (e) => {
@@ -19,19 +21,32 @@ const Register = () => {
       .then((result) => {
         const createdUser = result.user;
         console.log(createdUser);
+        const auth = getAuth();
+        console.log(auth);
+        updateProfile(auth.currentUser, {
+          displayName: displayName,
+          photoURL: photoURL,
+        })
+          .then(() => {
+            console.log("userUpdate");
+          })
+          .catch((error) => {
+            // An error occurred
+            // ...
+          });
       })
       .catch((error) => {
         console.log(error);
       });
 
-    updateUser(displayName, photoURL)
-      .then((result) => {
-        const updateDetails = result.user;
-        console.log(updateDetails);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // updateUser(displayName, photoURL)
+    //   .then((result) => {
+    //     const updateDetails = result.user;
+    //     console.log(updateDetails);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   const handleAccepted = (e) => {
