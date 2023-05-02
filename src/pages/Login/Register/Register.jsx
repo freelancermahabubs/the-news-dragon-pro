@@ -25,7 +25,6 @@ const Register = () => {
         console.log(auth);
         updateProfile(auth.currentUser, {
           displayName: displayName,
-          photoURL: photoURL,
         })
           .then(() => {
             console.log("userUpdate");
