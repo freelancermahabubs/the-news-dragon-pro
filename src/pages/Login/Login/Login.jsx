@@ -2,11 +2,13 @@ import React, { useContext } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
+import useTitle from "../../../useTitle";
 
 const Login = () => {
   const { singIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  useTitle("Login");
   console.log("login page Location", location);
 
   const from = location.state?.from?.pathname || "/category/0";

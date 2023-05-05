@@ -3,10 +3,12 @@ import { Container, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { getAuth, updateProfile } from "firebase/auth";
+import useTitle from "../../../useTitle";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
   const [accepted, setAccepted] = useState(false);
+  useTitle("Register");
 
   const handelRegister = (e) => {
     e.preventDefault();
